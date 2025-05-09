@@ -1,0 +1,198 @@
+#gst-nav-panel {
+  position: fixed;
+  top: 0;
+  right: -350px;
+  width: 300px;
+  height: 100vh;
+  background-color: white;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+  z-index: 10000;
+  transition: right 0.3s ease;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+#gst-nav-panel.panel-visible {
+  right: 0;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 15px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+}
+
+.panel-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#close-panel {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #666;
+}
+
+#close-panel:hover {
+  color: #333;
+}
+
+.panel-body {
+  padding: 15px;
+}
+
+.forms-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.form-item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  padding: 8px;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+}
+
+.form-item:hover {
+  background-color: #f1f1f1;
+}
+
+.form-link {
+  flex: 1;
+  text-decoration: none;
+  color: #1a73e8;
+  cursor: pointer;
+}
+
+.form-link:hover {
+  text-decoration: underline;
+}
+
+.form-edit-btn, .form-delete-btn {
+  background: none;
+  border: none;
+  font-size: 16px;
+  margin-left: 5px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.form-edit-btn:hover, .form-delete-btn:hover {
+  opacity: 1;
+}
+
+.form-actions-item {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#add-current-btn, #add-form-btn {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+#add-current-btn {
+  background-color: #34a853;
+}
+
+#add-current-btn:hover {
+  background-color: #2d8d47;
+}
+
+#add-form-btn:hover {
+  background-color: #1557b0;
+}
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 10001;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.modal-visible {
+  display: flex;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.modal-content h4 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+#cancel-form-btn {
+  background-color: #f1f1f1;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+#save-form-btn {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+} 
