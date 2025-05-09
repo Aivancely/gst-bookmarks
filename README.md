@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
 Navigating the GoSystem Tax website can be cumbersome due to dynamic URL tokens that change each time a tax return is opened, making traditional bookmarks ineffective. To address this, a Chrome extension can serve as a navigation aid, allowing users to quickly access predefined forms like the 1041 - Estates and Trusts Tax Return and Form 8949 pages. This extension opens a side panel listing these forms when the extension's icon is clicked, and selecting a form updates the current tab's URL to navigate to the corresponding screen. This report details the implementation, functionality, and considerations for creating such an extension.
 
 ### Problem Context
-The GoSystem Tax website uses URLs with a dynamic token, such as `https://dc-organizertoweb.fasttax.com/Home/Locator/3b700d65-28cd-48fb-a63b-cadacb41TEST/{FIRM_ID}/{FIRM_ID}/2024#!/38/156/0/0,0,0,0,0`. The token (e.g., `3b700d65-28cd-48fb-a63b-cadacb41TEST/{FIRM_ID}/{FIRM_ID}/2024`) changes per session, complicating direct navigation to specific forms. The fragment after `2024#!` (e.g., `/38/156/0/0,0,0,0,0`) determines the form displayed. The extension must preserve the token while updating the fragment to navigate to forms like:
+The GoSystem Tax website uses URLs with a dynamic token, such as `https://dc-organizertoweb.fasttax.com/Home/Locator/123456asd-abcd-123-1234-exampletoken/{FIRM_ID}/{FIRM_ID}/{TAXYEAR}#!/38/156/0/0,0,0,0,0`. The token (e.g., `123456asd-abcd-123-1234-exampletoken/{FIRM_ID}/{FIRM_ID}/{TAXYEAR}`) changes per session, complicating direct navigation to specific forms. The fragment after `{TAXYEAR}#!` (e.g., `/38/156/0/0,0,0,0,0`) determines the form displayed. The extension must preserve the token while updating the fragment to navigate to forms like:
 
 | Form Name                          | Screen Number            |
 |------------------------------------|--------------------------|
@@ -191,7 +191,7 @@ The JavaScript attaches click event listeners to each form link. When clicked, i
 - Includes error handling for invalid URLs or missing tabs.
 
 ### Functionality
-When the user clicks the extension's icon, the side panel opens, displaying forms like 1041 and 8949. Clicking a form updates the current tab's URL, preserving the dynamic token and changing only the fragment. For example, if the current URL is `https://dc-organizertoweb.fasttax.com/Home/Locator/[token]/2024#!/38/156/0/0,0,0,0,0`, selecting the 1041 form changes it to `https://dc-organizertoweb.fasttax.com/Home/Locator/[token]/2024#!/71/48/0/0,0,0,0,0`. The GoSystem Tax website, assumed to be a single-page application, should handle the fragment change to load the corresponding form.
+When the user clicks the extension's icon, the side panel opens, displaying forms like 1041 and 8949. Clicking a form updates the current tab's URL, preserving the dynamic token and changing only the fragment. For example, if the current URL is `https://dc-organizertoweb.fasttax.com/Home/Locator/[token]/{TAXYEAR}#!/38/156/0/0,0,0,0,0`, selecting the 1041 form changes it to `https://dc-organizertoweb.fasttax.com/Home/Locator/[token]/{TAXYEAR}#!/71/48/0/0,0,0,0,0`. The GoSystem Tax website, assumed to be a single-page application, should handle the fragment change to load the corresponding form.
 
 ### Alternative Approach: Popup-Based Solution
 If the Side Panel API is unavailable (e.g., Chrome versions before 114), a popup-based solution can be used. The manifest would specify a `default_popup` instead of a side panel, and the popup HTML and JavaScript would mirror the side panel's functionality. However, popups close when focus is lost, which may be less convenient than a persistent side panel.
@@ -217,7 +217,7 @@ The `popup.html` and `popup.js` would be nearly identical to `sidepanel.html` an
 - **Compatibility**: The Side Panel API requires Chrome 114 or later. Users with older versions should use the popup alternative.
 - **URL Handling**: The extension assumes the GoSystem Tax website's SPA correctly processes fragment changes. If navigation fails, injecting scripting to manipulate `location.hash` directly may be needed.
 - **Scalability**: The hardcoded form list is simple but requires manual updates. Future enhancements could include a configuration interface using `chrome.storage`.
-- **Error Handling**: The extension checks the URL's hostname and handles invalid URLs, but additional validation (e.g., ensuring the URL path includes `/2024`) could enhance robustness.
+- **Error Handling**: The extension checks the URL's hostname and handles invalid URLs, but additional validation (e.g., ensuring the URL path includes `/{TAXYEAR}`) could enhance robustness.
 - **Styling**: The side panel's fixed width (300px) is a starting point; users can adjust CSS for better usability.
 
 ### Testing Recommendations
